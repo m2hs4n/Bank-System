@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -10,8 +11,15 @@ from transaction.models import Transaction
 
 
 class TransactionListView(generics.ListAPIView):
-    serializer_class = serializers.TransactionListSerializer
+    serializer_class = serializers.TransactionListDetailSerializer
     queryset = Transaction.objects.all()
+
+
+class TransactionDetailView(APIView):
+    def get(self, request, transaction_number,  *args, **kwargs):
+        trans = get_object_or_404(Transaction, transaction_number=transaction_number)
+        serializer = serializers.TransactionListDetailSerializer(instance=trans)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
 class TransactionView(APIView):

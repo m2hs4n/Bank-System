@@ -22,7 +22,7 @@ class TransactionSerializer(serializers.Serializer):
         raise serializers.ValidationError({"message": "You can't transaction to your self"})
 
 
-class TransactionListSerializer(serializers.ModelSerializer):
+class TransactionListDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
         fields = "__all__"
