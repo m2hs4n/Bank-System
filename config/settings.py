@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     # Third party apps
     'rest_framework',
     'drf_spectacular',
+
+    # Local apps
+    'account.apps.AccountConfig',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +144,6 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
+
+MEDIA_ROOT = BASE_DIR / "media/"
+MEDIA_URL = "media/"
