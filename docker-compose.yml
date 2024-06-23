@@ -1,0 +1,32 @@
+volumes:
+  postgres_data: {}
+
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16
+    container_name: bank_system_postgres_container
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: debug_db
+      POSTGRES_USER: debug
+      POSTGRES_PASSWORD: debug
+
+  web:
+    build: .
+    image: bank_system_web_image
+    container_name: bank_system_web_container
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    # environment:
+    #   - DATABASE_NAME=your_db_name
+    #   - DATABASE_USER=your_db_user
+    #   - DATABASE_PASSWORD=your_db_password
+    #   - DATABASE_HOST=db
+    #   - DATABASE_PORT=5432
