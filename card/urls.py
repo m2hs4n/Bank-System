@@ -1,3 +1,7 @@
 from django.urls import path
 
-urlpatterns = []
+from card import views
+
+urlpatterns = [
+    path('verify/<str:card_number>/', views.CardVerifyView.as_view(), name='verify'),
+]
