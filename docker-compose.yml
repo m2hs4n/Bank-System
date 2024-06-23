@@ -24,9 +24,3 @@ services:
       - 8000:8000
     depends_on:
       - db
-    # environment:
-    #   - DATABASE_NAME=your_db_name
-    #   - DATABASE_USER=your_db_user
-    #   - DATABASE_PASSWORD=your_db_password
-    #   - DATABASE_HOST=db
-    #   - DATABASE_PORT=5432
