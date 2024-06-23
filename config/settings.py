@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # Local apps
     'account.apps.AccountConfig',
     'card.apps.CardConfig',
+    'transaction.apps.TransactionConfig',
 ]
 
 MIDDLEWARE = [
