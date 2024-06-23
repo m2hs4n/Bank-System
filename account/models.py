@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
+from django.shortcuts import get_object_or_404
+
 from .managers import UserManager
+
+from card.models import Card
 
 
 class User(AbstractBaseUser):
@@ -97,3 +101,14 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.first_name}-{self.last_name}'
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if self.status == "AC":
+            card = Card.objects.filter(profile_rel=self.id)
+            if not card:
+                card = Card(profile_rel_id=self.id)
+                card.create()
+                super().save()
+            else:
+                super().save()
+        super().save()
