@@ -65,6 +65,12 @@ class User(AbstractBaseUser):
 
 
 class Profile(models.Model):
+    STATUS = [
+        ('SU', 'Suspend'),
+        ('AC', 'Accepted'),
+        ('BA', 'Banned'),
+    ]
+
     GENDER = [
         ('0', 'Male'),
         ('1', 'Female'),
@@ -72,6 +78,8 @@ class Profile(models.Model):
     ]
 
     user_rel = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    status = models.CharField(max_length=3, choices=STATUS, default='SU')
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
