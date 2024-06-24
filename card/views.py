@@ -27,3 +27,12 @@ class MyCardView(APIView):
             serializer = serializers.MyCardsSerializer(instance=cards, many=True)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
         return Response(data={"message": "Not exists card"}, status=status.HTTP_404_NOT_FOUND)
+
+    def post(self, request, *args, **kwargs):
+        profile = get_object_or_404(Profile, user_rel=request.user)
+        serializer = serializers.MyCardCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(profile_rel=profile)
+            return Response(data={"message": "Saved Card successfully"}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

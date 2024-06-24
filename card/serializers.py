@@ -18,3 +18,13 @@ class MyCardsSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyCard
         fields = '__all__'
+
+
+class MyCardCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MyCard
+        fields = (
+            'card_number',
+            'cvv2',
+            'expiration_date',
+        )
