@@ -63,5 +63,5 @@ class RegisterSerializer(serializers.Serializer):
         return value
 
     def save(self, **kwargs):
-        raise serializers.ValidationError("kir khar")
-        print("dakhel")
+        raise serializers.ValidationError("Something went wrong")
+    
