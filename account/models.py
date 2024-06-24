@@ -104,6 +104,8 @@ class Profile(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if self.status == "AC":
+            self.user_rel.status = "AC"
+            self.user_rel.save()
             card = Card.objects.filter(profile_rel=self.id)
             if not card:
                 card = Card(profile_rel_id=self.id)
