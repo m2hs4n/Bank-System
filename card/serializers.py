@@ -20,7 +20,7 @@ class MyCardsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class MyCardCreateSerializer(serializers.ModelSerializer):
+class MyCardCreateUpdateDeleteSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyCard
         fields = (

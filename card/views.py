@@ -30,9 +30,25 @@ class MyCardView(APIView):
 
     def post(self, request, *args, **kwargs):
         profile = get_object_or_404(Profile, user_rel=request.user)
-        serializer = serializers.MyCardCreateSerializer(data=request.data)
+        serializer = serializers.MyCardCreateUpdateDeleteSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(profile_rel=profile)
             return Response(data={"message": "Saved Card successfully"}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class MyCardUpdateView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def put(self, request, card_id, *args, **kwargs):
+        my_card = get_object_or_404(MyCard, id=card_id)
+        serializer = serializers.MyCardCreateUpdateDeleteSerializer(instance=my_card, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data={"message": "Update Card successfully"}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, card_id, *args, **kwargs):
+        my_card = get_object_or_404(MyCard, id=card_id)
+        my_card.delete()
+        return Response(data={"message": "Delete Card successfully"}, status=status.HTTP_200_OK)
