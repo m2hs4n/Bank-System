@@ -28,3 +28,7 @@ class MyCardCreateUpdateDeleteSerializer(serializers.ModelSerializer):
             'cvv2',
             'expiration_date',
         )
+
+
+class MyCardSendPhoneNumberSerializer(serializers.Serializer):
+    phone_number = serializers.CharField()

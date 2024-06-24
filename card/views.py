@@ -52,3 +52,15 @@ class MyCardUpdateView(APIView):
         my_card = get_object_or_404(MyCard, id=card_id)
         my_card.delete()
         return Response(data={"message": "Delete Card successfully"}, status=status.HTTP_200_OK)
+
+
+class CardSendView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, card_id, *args, **kwargs):
+        my_card = get_object_or_404(MyCard, id=card_id)
+        phone_number_serializer = serializers.MyCardSendPhoneNumberSerializer(data=request.data)
+        if phone_number_serializer.is_valid():
+            # Send here with sending cloud provider
+            return Response(data={"message": f"Send this card number {my_card.card_number} to this phone number {phone_number_serializer.phone_number}"}, status=status.HTTP_200_OK)
+        return Response(phone_number_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
