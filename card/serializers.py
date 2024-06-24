@@ -2,6 +2,8 @@ from rest_framework import serializers
 
 from account.models import Profile
 
+from card.models import MyCard
+
 
 class CardVerifySerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,3 +12,9 @@ class CardVerifySerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
         )
+
+
+class MyCardsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MyCard
+        fields = '__all__'

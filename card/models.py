@@ -3,8 +3,6 @@ from random import randint
 
 from django.db import models
 
-# from account.models import Profile
-
 
 class Card(models.Model):
     profile_rel = models.OneToOneField("account.Profile", on_delete=models.PROTECT)
@@ -19,3 +17,10 @@ class Card(models.Model):
         self.cvv2 = randint(1000, 9999)
         self.expiration_date = datetime.date.today() + datetime.timedelta(days=800)
         super().save()
+
+
+class MyCard(models.Model):
+    profile_rel = models.ForeignKey("account.Profile", on_delete=models.CASCADE)
+    card_number = models.CharField(max_length=16)
+    cvv2 = models.CharField(max_length=5)
+    expiration_date = models.DateField()
