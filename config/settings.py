@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'card.apps.CardConfig',
     'transaction.apps.TransactionConfig',
+    'token_check.apps.TokenCheckConfig',
 ]
 
 MIDDLEWARE = [
