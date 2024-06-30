@@ -12,7 +12,15 @@ from account import serializers
 from account.models import Profile, User
 
 
-@extend_schema_view(get=extend_schema(request=serializers.ProfileSerializer))
+@extend_schema_view(
+    get=extend_schema(responses=serializers.RegisterSerializer, description="This API just show profile information"),
+    put=extend_schema(
+        request=serializers.RegisterSerializer,
+        responses=serializers.RegisterSerializer,
+        description="This API Each field if send that field will updated"
+    ),
+    delete=extend_schema(description="This API just change status to delete")
+)
 class ProfileView(APIView):
     permission_classes = (IsAuthenticated, )
 
@@ -38,7 +46,10 @@ class ProfileView(APIView):
         return Response(data={"message": "You are in closing account status"}, status=status.HTTP_200_OK)
 
 
-@extend_schema_view(post=extend_schema(request=serializers.RegisterSerializer))
+@extend_schema_view(post=extend_schema(
+    responses=serializers.RegisterSerializer,
+    request=serializers.RegisterSerializer)
+)
 class RegisterAccountView(APIView):
 
     def post(self, request):
